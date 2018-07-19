@@ -19,6 +19,7 @@ UserSchema.virtual('isLocked').get(function() {
     return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
+//hashes the password when a document is sent to the database
 UserSchema.pre('save', function(next) {
     var user = this;
 
@@ -116,6 +117,6 @@ UserSchema.statics.getAuthenticated = function(username, password, cb) {
         });
     });
 };
-
-module.exports = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+module.exports = User;
 
