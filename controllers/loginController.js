@@ -11,10 +11,30 @@ module.exports = {
   // },
   findByUser: function(req, res) {
     db.Login
-      .getAuthenticated(req.body.username, req.body.password, function (hello){
-        console.log("made it here");
-        console.log(hello);
-      })
+      .getAuthenticated(req.body.username, req.body.password, function(err, user, reason) {
+        if (err) throw err;
+
+        // login was successful if we have a user
+        if (user) {
+            // handle login success
+            console.log('login success');
+            return;
+        }
+
+        // otherwise we can determine why we failed
+        var reasons = db.Login.failedLogin;
+        switch (reason) {
+            case reasons.NOT_FOUND:
+            case reasons.PASSWORD_INCORRECT:
+                // note: these cases are usually treated the same - don't tell
+                // the user *why* the login failed, only that it did
+                break;
+            case reasons.MAX_ATTEMPTS:
+                // send email or otherwise notify user that account is
+                // temporarily locked
+                break;
+        }
+    })
       // .then(function(login){
         
       //   console.log(login);
@@ -27,7 +47,7 @@ module.exports = {
 
       
       // .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      // .catch(err => res.status(422).json(err));
   },
   //creates username and password
   create: function(req, res) {
