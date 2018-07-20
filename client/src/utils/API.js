@@ -5,9 +5,13 @@ export default {
   getBooks: function() {
     return axios.get("/api/books");
   },
-  // Gets the book with the given id
-  getLogin: function(userName) {
-    return axios.get("/api/login/", userName);
+  // Gets the correct user and authorizes them
+  getLogin: function(req, res) {
+    console.log(req)
+    console.log("check me!!!!")
+    // return axios.get("/api/login/", {params: req})
+    axios.get("/api/login/", {params: req})
+    .then(function(results){ res.json(results)})
   },
   // Deletes the book with the given id
   deleteBook: function(id) {

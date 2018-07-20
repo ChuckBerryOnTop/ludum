@@ -10,14 +10,17 @@ module.exports = {
   //     .catch(err => res.status(422).json(err));
   // },
   findByUser: function(req, res) {
+    console.log("****")
     db.Login
-      .getAuthenticated(req.body.username, req.body.password, function(err, user, reason) {
-        if (err) throw err;
-
+    .getAuthenticated(req.query.username, req.query.password, function(err, user, reason) {
+      if (err) throw err;
         // login was successful if we have a user
         if (user) {
             // handle login success
-            console.log('login success');
+            console.log("login success");
+            console.log(user);
+            res.json(user);
+            console.log("sending to browser");
             return;
         }
 
@@ -37,13 +40,7 @@ module.exports = {
     })
       // .then(function(login){
         
-      //   console.log(login);
-      //   console.log(login.password);
-      //   console.log(req.body.password);
-      //   if(login.password === req.body.password){
-      //     console.log("success!!!")
-      //   }
-      // })
+      
 
       
       // .then(dbModel => res.json(dbModel))

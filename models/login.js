@@ -73,11 +73,13 @@ var reasons = UserSchema.statics.failedLogin = {
 };
 
 UserSchema.statics.getAuthenticated = function(username, password, cb) {
+   
     this.findOne({ username: username }, function(err, user) {
         if (err) return cb(err);
 
         // make sure the user exists
         if (!user) {
+            console.log("HERE?");
             return cb(null, null, reasons.NOT_FOUND);
         }
 
@@ -96,6 +98,7 @@ UserSchema.statics.getAuthenticated = function(username, password, cb) {
 
             // check if the password was a match
             if (isMatch) {
+                console.log("Got EMMMMMM")
                 // if there's no lock or failed attempts, just return the user
                 if (!user.loginAttempts && !user.lockUntil) return cb(null, user);
                 // reset attempts and lock info

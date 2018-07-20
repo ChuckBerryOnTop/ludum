@@ -26,19 +26,29 @@ class loginScreen extends Component  {
         username: this.state.login,
         password: this.state.password,
       })
-        // .then(res => this.loadBooks())
-        .catch(err => console.log(err));
+      // .then(res => this.loadBooks())
+      .catch(err => console.log(err));
     }
   };
-
+  
   //handles the login attempt
   handleLogin = event => {
-    event.preventDefault()
+    event.preventDefault();
     if (this.state.login && this.state.password) {
       API.getLogin({
         username: this.state.login,
         password: this.state.password
       })
+      console.log("im so clossseeeeee!!!!")
+      .then(res => {
+        console.log(res);
+        this.setState({login: res.data.username})
+      console.log(this.state.login)
+      console.log("fook the mayweathers")
+      }
+        
+      
+      )
     }
   }
 
