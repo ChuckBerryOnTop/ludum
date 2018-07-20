@@ -35,15 +35,22 @@ class loginScreen extends Component  {
   handleLogin = event => {
     event.preventDefault();
     if (this.state.login && this.state.password) {
+    //   axios.get("/api/login/", this.state.login, this.state.password)
+    // .then(function (dataThatIsReturnedFromTheServer) {
+    //     // we work with that data now on the front-end
+    // });
+
+
+
       API.getLogin({
         username: this.state.login,
         password: this.state.password
       })
-      console.log("im so clossseeeeee!!!!")
       .then(res => {
+        console.log("please be here!")
         console.log(res);
-        this.setState({login: res.data.username})
-      console.log(this.state.login)
+        // this.setState({login: res.data.username})
+     
       console.log("fook the mayweathers")
       }
         

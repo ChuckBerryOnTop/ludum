@@ -79,7 +79,7 @@ UserSchema.statics.getAuthenticated = function(username, password, cb) {
 
         // make sure the user exists
         if (!user) {
-            console.log("HERE?");
+           
             return cb(null, null, reasons.NOT_FOUND);
         }
 

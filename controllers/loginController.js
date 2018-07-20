@@ -12,8 +12,10 @@ module.exports = {
   findByUser: function(req, res) {
     console.log("****")
     db.Login
-    .getAuthenticated(req.query.username, req.query.password, function(err, user, reason) {
+    .getAuthenticated(req.body.username, req.body.password, function(err, user, reason) {
+      console.log("check me out!!!!!")
       if (err) throw err;
+      
         // login was successful if we have a user
         if (user) {
             // handle login success
@@ -38,6 +40,10 @@ module.exports = {
                 break;
         }
     })
+    // .then(function (foundUser) {
+  //     var coolUser = foundUser;
+  //     res.send(coolUser)
+  // })
       // .then(function(login){
         
       
