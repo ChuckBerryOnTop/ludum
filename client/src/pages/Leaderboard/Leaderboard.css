@@ -29,7 +29,7 @@
 .container {
   min-height: 100vh;
   height: 100vh;
-  margin: 0;
+  margin: 3%;
   font-size: 1.6rem;
   display: flex;
   justify-content: center;
@@ -40,7 +40,7 @@
 .screen {
   font-family: "Press Start 2P";
   width: 90%;
-  height: 95%;
+  height: 90%;
   position: relative;
   border: 4px solid dimgray;
   background: repeating-linear-gradient(
@@ -54,28 +54,30 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  overflow: scroll;
+  
 }
-/* 
-img {
-  border-radius: 17px;
-} */
+
+.leader{
+  overflow: scroll;
+  /* padding-left: 5%; */
+}
 
 .leadTxt {
   color: white;
 }
 
-.row {
+.helloJeff {
   display: flex;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 5%;
+  
 }
 
-
-
 table {
-  width: 80%;
-  font-size: 1.3em;
+  /* width: 80%; */
+  /* font-size: 1.3em; */
+  table-layout:fixed;
+width: 100%;
 }
 
 table th {
@@ -125,6 +127,3 @@ table td:first-child {
   text-align: right;
 }
 
-/* .leader {
-  margin:0 auto;
-} */
