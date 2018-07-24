@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Books from "./pages/Books";
+import Leaderboard from "./pages/Leaderboard";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Nav from "./components/Nav";
@@ -13,8 +13,8 @@ const App = () => (
       <Nav />
         <Route exact path="/" component={Login} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/game" component={Login} />
-        <Route exact path="/leaderboard" component={Books} />
+        <Route exact path="/game" component={About} />
+        <Route exact path="/leaderboard" component={Leaderboard} />
       <Footer />
     </div>
   </Router>

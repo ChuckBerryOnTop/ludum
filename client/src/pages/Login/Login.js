@@ -4,6 +4,7 @@ import Jumbotron from "../../components/Jumbotron";
 import { Col, Form, FormGroup, Label, Input} from 'reactstrap';
 import { FormBtn } from "../../components/Form";
 import API from "../../utils/API";
+import {Redirect} from 'react-router-dom';
 
 class loginScreen extends Component  {
   state ={
@@ -29,37 +30,40 @@ class loginScreen extends Component  {
       // .then(res => this.loadBooks())
       .catch(err => console.log(err));
     }
+    // change this either to modal or alert to let ppl know that they entered account correctly
+    window.location.reload();
   };
   
   //handles the login attempt
   handleLogin = event => {
     event.preventDefault();
+    //makes sure that a login and password input is present if not can't go through
     if (this.state.login && this.state.password) {
-    //   axios.get("/api/login/", this.state.login, this.state.password)
-    // .then(function (dataThatIsReturnedFromTheServer) {
-    //     // we work with that data now on the front-end
-    // });
-
-
-
       API.getLogin({
         username: this.state.login,
         password: this.state.password
       })
       .then(res => {
-        console.log("please be here!")
-        console.log(res);
-        // this.setState({login: res.data.username})
-     
-      console.log("fook the mayweathers")
-      }
-        
-      
+        //checks if login and password is correct
+        if (res.data === "Incorrect Password" || res.data === "Too many attempts"){
+          if(!alert('Incorrect Login or Password, try again!')){window.location.reload();}
+        } else {
+          console.log(res)
+          localStorage.setItem("user-loggedIn", true);
+          //remember to json.parse the res when getting the storage item!!!!!
+          localStorage.setItem("local", JSON.stringify(res));
+          window.location.reload();
+          
+        } 
+      } 
       )
     }
   }
-
   render() {
+    if (localStorage.getItem("user-loggedIn")) {
+      return <Redirect to='/game' />
+    }
+    
     return (
       <Container fluid>
     <Row>

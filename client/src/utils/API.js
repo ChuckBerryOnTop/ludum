@@ -7,11 +7,7 @@ export default {
   },
   // Gets the correct user and authorizes them
   getLogin: function(data) {
-    console.log(data)
-    console.log("check me!!!!")
     return axios.post("/api/login/auth/", data)
-    // return axios.post("/api/login/", data)
-   
   },
   // Deletes the book with the given id
   deleteBook: function(id) {

@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+:root {
+  --black: #272727;
+  --red: #DF3C3D;
+  --blue: #3589E6;
+  --yellow: gold;
+  --orange: orange;
+  --green: #9ACF70;
+  --white: #FAEBD7;
+}
+
+.main {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 400;
+  font-size: 10px;
+  color: var(--black);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.container {
+  min-height: 100vh;
+  height: 100vh;
+  margin: 0;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--black)
+}
+
+.screen {
+  font-family: "Press Start 2P";
+  width: 90%;
+  height: 95%;
+  position: relative;
+  border: 4px solid dimgray;
+  background: repeating-linear-gradient(
+    0deg,
+    black,
+    rgba(255,255,255,.06) 4px
+  );
+  border-radius: 17px;
+  box-shadow: inset 24px 24px 100px rgba(255,255,255,.12),inset -24px -24px 100px rgba(0,0,0,.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: scroll;
+}
+/* 
+img {
+  border-radius: 17px;
+} */
+
+.leadTxt {
+  color: white;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+
+
+table {
+  width: 80%;
+  font-size: 1.3em;
+}
+
+table th {
+  text-align: left;
+  padding: 32px;
+  background: repeating-linear-gradient(
+    0deg,
+    #254AD7,
+    #6AC7EC 4px
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 24px rgba(255,255,255,.26);
+}
+
+table th:first-child {
+  text-align: right;
+}
+
+table td {
+  color: var(--red);
+  background: repeating-linear-gradient(
+    0deg,
+    #D31E1F,
+    #F36156 4px
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+  padding: 16px 32px;
+  text-shadow: 1px 1px 24px rgba(255,255,255,.26);
+}
+
+table tr:nth-child(2) td,
+table tr:nth-child(3) td,
+table tr:nth-child(4) td {
+  background: repeating-linear-gradient(
+    0deg,
+    #30A12C,
+    #BCD945 4px
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+table td:first-child {
+  text-align: right;
+}

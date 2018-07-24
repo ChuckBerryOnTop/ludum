@@ -98,7 +98,6 @@ UserSchema.statics.getAuthenticated = function(username, password, cb) {
 
             // check if the password was a match
             if (isMatch) {
-                console.log("Got EMMMMMM")
                 // if there's no lock or failed attempts, just return the user
                 if (!user.loginAttempts && !user.lockUntil) return cb(null, user);
                 // reset attempts and lock info

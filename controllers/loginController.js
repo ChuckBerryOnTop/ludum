@@ -1,6 +1,5 @@
 const db = require("../models");
 
-// Defining methods for the booksController
 module.exports = {
   // findAll: function(req, res) {
   //   db.Login
@@ -13,16 +12,14 @@ module.exports = {
     console.log("****")
     db.Login
     .getAuthenticated(req.body.username, req.body.password, function(err, user, reason) {
-      console.log("check me out!!!!!")
-      if (err) throw err;
-      
+      if (err) throw err
         // login was successful if we have a user
         if (user) {
             // handle login success
             console.log("login success");
             console.log(user);
             res.json(user);
-            console.log("sending to browser");
+            console.log("sending to browser, remeber to check brower console not backend console");
             return;
         }
 
@@ -33,24 +30,16 @@ module.exports = {
             case reasons.PASSWORD_INCORRECT:
                 // note: these cases are usually treated the same - don't tell
                 // the user *why* the login failed, only that it did
+                res.send("Incorrect Password")
                 break;
             case reasons.MAX_ATTEMPTS:
                 // send email or otherwise notify user that account is
                 // temporarily locked
+                res.send("Too many attempts")
                 break;
         }
     })
-    // .then(function (foundUser) {
-  //     var coolUser = foundUser;
-  //     res.send(coolUser)
-  // })
-      // .then(function(login){
-        
-      
-
-      
-      // .then(dbModel => res.json(dbModel))
-      // .catch(err => res.status(422).json(err));
+   
   },
   //creates username and password
   create: function(req, res) {
