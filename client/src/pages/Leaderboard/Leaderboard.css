@@ -124,3 +124,7 @@ table tr:nth-child(4) td {
 table td:first-child {
   text-align: right;
 }
+
+/* .leader {
+  margin:0 auto;
+} */

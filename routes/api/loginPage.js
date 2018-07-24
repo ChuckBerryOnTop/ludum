@@ -6,9 +6,15 @@ router.route("/")
   // .get(controller.findByUser)
   .post(controller.create);
 
+  //Matches with "/api/login/auth"
   router.route("/auth")
   .post(controller.findByUser)
 
+
+  //Matches with "/api/login/score"
+  router.route("/score")
+  .get(controller.findAll)
+  .post(controller.addScore)
 // Matches with "/api/login/:id"
 // router
 //   .route("/:id")

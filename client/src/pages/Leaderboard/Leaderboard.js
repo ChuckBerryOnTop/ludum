@@ -1,56 +1,28 @@
 import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
 // import Jumbotron from "../../components/Jumbotron";
-// import API from "../../utils/API";
+import API from "../../utils/API";
 // import { Link } from "react-router-dom";
 import "./Leaderboard.css";
 
 
 class Leaderboard extends Component {
   state = {
-    books: [],
-    title: "",
-    author: "",
-    synopsis: ""
+    profiles: [],
   };
 
-  // componentDidMount() {
-    
-  // }
+  componentDidMount() {
+    this.loadScores();
+  }
 
-  // loadBooks = () => {
-  //   API.getBooks()
-  //     .then(res =>
-  //       this.setState({ books: res.data, title: "", author: "", synopsis: "" })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
-  // deleteBook = id => {
-  //   API.deleteBook(id)
-  //     .then(res => this.loadBooks())
-  //     .catch(err => console.log(err));
-  // };
-
-  // handleInputChange = event => {
-  //   const { name, value } = event.target;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
-
-  // handleFormSubmit = event => {
-  //   event.preventDefault();
-  //   if (this.state.title && this.state.author) {
-  //     API.saveBook({
-  //       title: this.state.title,
-  //       author: this.state.author,
-  //       synopsis: this.state.synopsis
-  //     })
-  //       .then(res => this.loadBooks())
-  //       .catch(err => console.log(err));
-  //   }
-  // };
+  loadScores = () => {
+    API.getScore()
+      .then(res =>
+        // remeber to put stuff in here to show to page
+        this.setState({ profiles: res.data })
+      )
+      .catch(err => console.log(err));
+  };
 
   render() {
     return (
@@ -60,54 +32,60 @@ class Leaderboard extends Component {
   <div className="title">
     <div className="row">
     <h1 className="leadTxt">LUDUM Leaderboard</h1>
-    </div>
-    
+    </div> 
   </div>
-  <div>
-    <table>
-      <tr>
-        <th>RANK</th>
-        <th>SCORE</th>
-        <th>NAME</th>
-      </tr>
-      <tr>
-        <td>1st</td>
-        <td>465800</td>
-        <td>Jeff</td>
-      </tr>
-      <tr>
-        <td>2nd</td>
-        <td>178500</td>
-        <td>DANIEL</td>
-      </tr>
-      <tr>
-        <td>3rd</td>
-        <td>172500</td>
-        <td>JEFF</td>
-      </tr>
-      <tr>
-        <td>4th</td>
-        <td>088600</td>
-        <td>DKUB</td>
-      </tr>
-      <tr>
-        <td>5th</td>
-        <td>063800</td>
-        <td>JEF</td>
-      </tr>
-      <tr>
-        <td>6th</td>
-        <td>063700</td>
-        <td>DAK</td>
-      </tr>
-      <tr>
-        <td>7th</td>
-        <td>063800</td>
-        <td>JEF</td>
-      </tr>
-      
-    </table>
-  </div>
+  
+      {this.state.profiles.length ? (
+              <div className="leader">
+              <table>
+                <tr>
+                  <th>RANK</th>
+                  <th>SCORE</th>
+                  <th>NAME</th>
+                </tr>
+                {this.state.profiles.map(i => (
+                  <tr>
+                  <td>{i+1}</td>
+                  <td>{i.score}</td>
+                  <td>{i.name}</td>
+                </tr>
+                ))}
+                 </table>
+                  </div>
+            
+            ) : (
+              <div className="leader">
+              <table>
+                <tr>
+                  <th>RANK</th>
+                  <th>SCORE</th>
+                  <th>NAME</th>
+                </tr>
+              <tr>
+                <td>1st</td>
+                <td>465800</td>
+                <td>Jeff</td>
+              </tr>
+              <tr>
+              <td>2nd</td>
+              <td>12345</td>
+              <td>Cool</td>
+            </tr>
+            <tr>
+            <td>3rd</td>
+            <td>5800</td>
+            <td>Jeff</td>
+          </tr>
+          <tr>
+            <td>4th</td>
+            <td>1222</td>
+            <td>2Juicy</td>
+          </tr>
+          </table>
+          </div>
+                 
+            )}
+   
 </div>
 </div>
 </div>
@@ -116,3 +94,5 @@ class Leaderboard extends Component {
 }
 
 export default Leaderboard;
+
+
