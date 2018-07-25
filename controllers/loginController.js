@@ -10,8 +10,11 @@ module.exports = {
   //     .catch(err => res.status(422).json(err));
   // },
   findByUser: function(req, res) {
+    console.log(req.body)
     db.Login
       .getAuthenticated(req.body.username, req.body.password, function(err, user, reason) {
+        console.log('method')
+        console.log('ga: '+JSON.stringify(arguments));
         if (err) throw err;
 
         // login was successful if we have a user

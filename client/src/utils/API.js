@@ -7,6 +7,7 @@ export default {
   },
   // Gets the book with the given id
   getLogin: function(userName) {
+    console.log('click')
     return axios.get("/api/login/", userName);
   },
   // Deletes the book with the given id

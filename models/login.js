@@ -75,7 +75,7 @@ var reasons = UserSchema.statics.failedLogin = {
 UserSchema.statics.getAuthenticated = function(username, password, cb) {
     this.findOne({ username: username }, function(err, user) {
         if (err) return cb(err);
-
+        console.log('mod: '+JSON.stringify(arguments));
         // make sure the user exists
         if (!user) {
             return cb(null, null, reasons.NOT_FOUND);
