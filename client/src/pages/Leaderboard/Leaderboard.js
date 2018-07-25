@@ -29,7 +29,10 @@ class Leaderboard extends Component {
         <div className="container">
           <div className="screen">
             <div className="row helloJeff">
-              <h1 className="leadTxt">LUDUM Leaderboard</h1>
+              <p className="heading">LUDUM</p>
+            </div>
+            <div className="row helloJeff">
+              <h1 className="leadTxt">Leaderboard</h1>
             </div>
 
             {this.state.profiles.length
@@ -48,7 +51,9 @@ class Leaderboard extends Component {
                         <tr>
                           <td>{index + 1}</td>
                           <td>{i.score}</td>
-                          <td>{i.name}</td>
+                          <td>{i
+                              .name
+                              .toUpperCase()}</td>
                         </tr>
                       ))}
                   </table>
@@ -71,17 +76,12 @@ class Leaderboard extends Component {
                     <tr>
                       <td>2nd</td>
                       <td>12345</td>
-                      <td>Cool</td>
+                      <td>Dan</td>
                     </tr>
                     <tr>
                       <td>3rd</td>
                       <td>5800</td>
-                      <td>Jeff</td>
-                    </tr>
-                    <tr>
-                      <td>4th</td>
-                      <td>1222</td>
-                      <td>2Juicy</td>
+                      <td>Chuck Berry</td>
                     </tr>
                   </table>
                 </div>

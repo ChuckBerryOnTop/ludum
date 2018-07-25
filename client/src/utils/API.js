@@ -9,7 +9,6 @@ export default {
   
   // Saves a book to the database
   saveLogin: function(loginData) {
-    console.log("successfully added login")
     return axios.post("/api/login/", loginData);
   },
 
@@ -22,10 +21,5 @@ export default {
 postScore: function (data){
   return axios.post("/api/login/score/", data);
 },
-
-// Deletes the book with the given id
-deleteBook: function(id) {
-  return axios.delete("/api/books/" + id);
-}
 
 };

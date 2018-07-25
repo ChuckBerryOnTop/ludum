@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import {Row, Container } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
-import { Col, Form, FormGroup, Label, Input} from 'reactstrap';
+import { Col, Form, FormGroup, Label, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import { FormBtn } from "../../components/Form";
 import API from "../../utils/API";
 import {Redirect} from 'react-router-dom';
@@ -11,6 +11,32 @@ class loginScreen extends Component  {
     login: "",
     password: ""
   }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false,
+      modal1: false
+    };
+
+    this.toggle = this.toggle.bind(this);
+    this.toggle1 = this.toggle1.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+
+  toggle1() {
+    this.setState({
+      modal1: !this.state.modal1
+    });
+  }
+
+
+
   //handles all the text typed on page
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -27,11 +53,17 @@ class loginScreen extends Component  {
         username: this.state.login,
         password: this.state.password,
       })
-      // .then(res => this.loadBooks())
-      .catch(err => console.log(err));
+      .then(res => {
+        console.log(res)
+        this.toggle1();
+      })
+      // .catch(err => {
+      //   console.log(err + "here")
+      //   if(err){
+      //     alert("User exists!")
+      //   }
+      // });
     }
-    // change this either to modal or alert to let ppl know that they entered account correctly
-    window.location.reload();
   };
   
   //handles the login attempt
@@ -46,7 +78,7 @@ class loginScreen extends Component  {
       .then(res => {
         //checks if login and password is correct
         if (res.data === "Incorrect Password" || res.data === "Too many attempts"){
-          if(!alert('Incorrect Login or Password, try again!')){window.location.reload();}
+          this.toggle();
         } else {
           console.log(res)
           localStorage.setItem("user-loggedIn", true);
@@ -69,10 +101,10 @@ class loginScreen extends Component  {
     <Row>
       <Col md={12}>
         <Jumbotron>
-        <h1 style={{textAlign: "center"}}>LUDUM Game Login</h1>
+        <h1 style={{textAlign: "center", color: "white"}}>LUDUM Login</h1>
           <Form>
         <FormGroup row>
-          <Label for="userName" sm={2}>Username</Label>
+          <Label for="userName" style={{color: "white"}} sm={2}>Username</Label>
           <Col sm={10}>
             <Input 
             type="text" 
@@ -84,7 +116,7 @@ class loginScreen extends Component  {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="passWord" sm={2}>Password</Label>
+          <Label for="passWord" style={{color: "white"}} sm={2}>Password</Label>
           <Col sm={10}>
             <Input 
             type="password" 
@@ -111,7 +143,30 @@ class loginScreen extends Component  {
         </Jumbotron>
       </Col>
     </Row>
+    <div>
+   <Modal isOpen={this.state.modal1} toggle={this.toggle1}>
+     <ModalHeader toggle={this.toggle1}>Congrats!!!!!</ModalHeader>
+     <ModalBody>
+       Username and Password accepted!!!
+     </ModalBody>
+     <ModalFooter>
+       <Button color="secondary" onClick={this.toggle1}>Close</Button>
+     </ModalFooter>
+   </Modal>
+ </div>
+    <div>
+   <Modal isOpen={this.state.modal} toggle={this.toggle}>
+     <ModalHeader toggle={this.toggle}>Warning!!!!!</ModalHeader>
+     <ModalBody>
+       Wrong login or password, please re-enter. 
+     </ModalBody>
+     <ModalFooter>
+       <Button color="secondary" onClick={this.toggle}>Close</Button>
+     </ModalFooter>
+   </Modal>
+ </div>
   </Container>
+   
     )
   }
 }
