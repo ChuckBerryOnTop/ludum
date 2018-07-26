@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start": "concurrently \"npm run start:prod\" \"npm run client\"",
     "start:prod": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
@@ -17,14 +17,20 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "webpack-cli": "^3.1.0"
   },
   "dependencies": {
     "axios": "^0.16.2",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.17.2",
+    "expose-loader": "^0.7.5",
     "express": "^4.15.4",
     "if-env": "^1.0.4",
-    "mongoose": "^5.0.17"
+    "mongoose": "^5.0.17",
+    "morgan": "^1.9.0",
+    "phaser-ce": "^2.11.0",
+    "pixi.js": "^4.8.1",
+    "react-phaser": "^0.1.6"
   }
 }
