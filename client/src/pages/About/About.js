@@ -12,7 +12,7 @@ const About = () => (
       <h2>
       About Us</h2>
       <hr></hr>
-      <p>Two cool bros, trying to make a cool game we can eventually monetize...</p>
+      <p>Two cool guys who sat next to each other on the first day of class. Now they make cool apps that they can hopefully monetize.</p>
     </div>
 
     <div className="post-it-note red" id="note-2">
@@ -21,7 +21,7 @@ const About = () => (
       <h2>
       Hey, I'm Jeff!</h2>
       <hr></hr>
-      <p>One-Half of team Ludum, they call me the bad boy of the group, I'm basically the Nick Carter of the group.</p>
+      <p>Half of team LUDUM, legend has it he can chew gum and code at the same time.</p>
     </div>
 
     <div className="post-it-note blue" id="note-3">
@@ -29,7 +29,7 @@ const About = () => (
 
       <h2>Dan Kubiak</h2>
       <hr></hr>
-      <p>The Other-Half of team Ludum, considered to be the Tiger Woods of coding.</p>
+      <p>Upcoming Javascript developer.</p>
     </div>
 
     <figure className="polaroid" id="picture-1">
@@ -41,7 +41,7 @@ const About = () => (
     </figure>
 
     <figure className="polaroid" id="picture-2">
-      <div className="pin blue"></div><img alt="Team LUDUM" src="https://s-i.huffpost.com/gen/1832778/images/o-TWO-GUYS-ONE-PUP-VIDEO-facebook.jpg"></img>
+      <div className="pin blue"></div><img alt="Team LUDUM" src={require("../../images/game1.png")}></img>
       <figcaption>
         <a href="https://github.com/ChuckBerryOnTop/ludum">Git Hub Repo, check us out!<i className="fab fa-github-alt"></i><i className="fab fa-github-alt"></i><i className="fab fa-github-alt"></i></a>
       </figcaption>

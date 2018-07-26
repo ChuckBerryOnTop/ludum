@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import "./Game.css";
 import API from "../../utils/API";
-
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import Skeleton from  './assets/BODY_skeleton.png'
             //game.load.spritesheet('skeleton-fire', 'assets/BODY_skeleton-fire.png', 64, 64, 28);
 import SkeletonFire from './assets/BODY_skeleton-fire.png'
@@ -46,6 +46,8 @@ const Phaser = require('phaser/build/custom/phaser-split')
  
 React.render(<MyGame/>, 'game');*/
 class Game extends Component  {
+
+    
     createGame = (width, height) => {
         EnemySkeleton = function (index, game, player, bullets) {   
 
@@ -515,6 +517,9 @@ class Game extends Component  {
             game.camera.focusOnXY(sprite.x, sprite.y);
             
             createText();
+
+            startGame();
+            
         }        
         
         function update() {  
@@ -1050,8 +1055,16 @@ class Game extends Component  {
             // API.postScore({name: 'test', score: score})
         //     API.postScore({name: localStorage.getItem(JSON.parse(local.data.username)), score: score})
          }
+
+         
+
+         function startGame() {
+             alert("Welcome to Ludum! \nWASD -> move \nSPACE -> shoot \nSHIFT -> shield");
+         }
         
+
     }
+    
 
     componentDidMount() {
         this.createGame(800, 600);
@@ -1060,11 +1073,15 @@ class Game extends Component  {
     render() {
         
         return (
+            
             <div id='phaser-example'>
+            </div>
             
             
             
-            </div>)
+            
+        
+        )
         }    
 
 
