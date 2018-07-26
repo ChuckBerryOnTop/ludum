@@ -1,5 +1,6 @@
 import React,{Component} from "react";
 import "./Game.css";
+import API from "../../utils/API";
 
 import Skeleton from  './assets/BODY_skeleton.png'
             //game.load.spritesheet('skeleton-fire', 'assets/BODY_skeleton-fire.png', 64, 64, 28);
@@ -325,8 +326,9 @@ class Game extends Component  {
         var explosions;
         var emitterSmoke;
         var targetAngle;
-        
-        var WebFontConfig;
+        var score = 0;
+       // var localSTorage = 
+        //var WebFontConfig;
         
         function create() {
             
@@ -382,7 +384,7 @@ class Game extends Component  {
             sprite.body.allowGravity = false;
             sprite.body.collideWorldBounds = true;
             sprite.anchor.setTo(0.5);
-            sprite.health = 500;
+            sprite.health = 50;
           
             cursors = game.input.keyboard.createCursorKeys();
             game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
@@ -868,7 +870,9 @@ class Game extends Component  {
                 explosion.reset(b.x, b.y);    
                 explosion.play('explosion', 30, false, true);
                 a.kill();
+                score += 1000;
             }
+            score += 100;
         
             disableBullet(a);
         }
@@ -916,6 +920,8 @@ class Game extends Component  {
                     }, 3000);
                 }        
                 
+                score += 100;
+
                 applyVel(b);
               
                 disableBullet(b);      
@@ -947,6 +953,10 @@ class Game extends Component  {
                 flash(sprite);
                 b.kill();
                 change(a, b);
+
+                if (sprite.health < 1) {
+                    gameOver();
+                }
             }
         }
         
@@ -1028,9 +1038,18 @@ class Game extends Component  {
         function updateText() {
         
             if (text) {
-                text.setText("Shields: "+shield.health+"\nHealth: "+sprite.health);
+                text.setText("Shields: "+shield.health+"\nHealth: "+sprite.health+"\nScore: "+score);
             }
         }
+
+        var gameCharacter = JSON.parse(localStorage.getItem("local")); 
+        function gameOver() {
+            alert('You Died! Score = '+score);
+            console.log(gameCharacter)
+           API.postScore({name: gameCharacter.data.username, score: score})
+            // API.postScore({name: 'test', score: score})
+        //     API.postScore({name: localStorage.getItem(JSON.parse(local.data.username)), score: score})
+         }
         
     }
 

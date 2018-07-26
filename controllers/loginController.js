@@ -46,7 +46,6 @@ module.exports = {
     db.Login
       .create(req.body)
       .then(dbModel => {
-        console.log("heyyyyyyyyyyyyyyyyyyyyyyyyy")
         console.log(dbModel)
         res.json(dbModel)
       })
@@ -55,6 +54,7 @@ module.exports = {
 
   //creates profile for score
   addScore: function(req, res) {
+    console.log(req.body)
     db.Score
       .create(req.body)
       .then(dbModel => res.json(dbModel))
