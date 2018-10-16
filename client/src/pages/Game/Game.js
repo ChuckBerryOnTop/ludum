@@ -49,7 +49,7 @@ class Game extends Component  {
 
     
     createGame = (width, height) => {
-        EnemySkeleton = function (index, game, player, bullets) {   
+        function EnemySkeleton(index, game, player, bullets) {   
 
             var x = game.world.randomX;
             var y = game.world.randomY;
@@ -117,7 +117,10 @@ class Game extends Component  {
             }
         
             if (this.skeleton.alive && this.walking) {
-                setTimeout(this.changeDir.bind(this), 5000);
+            //    setTimeout(this.changeDir.bind(this), 5000);
+                game.time.events.add(Phaser.Timer.SECOND * 5, () => {
+                    this.changeDir.bind(this)            
+                }, this); 
             }
         }
         
@@ -321,7 +324,7 @@ class Game extends Component  {
         var charge = false;
         
         var enemyBullets;
-        var EnemySkeleton;
+        
         var enemies;
         var enemiesTotal;
         var enemiesAlive;
@@ -329,6 +332,10 @@ class Game extends Component  {
         var emitterSmoke;
         var targetAngle;
         var score = 0;
+
+        var velX;
+        var velY;
+        var output;
        // var localSTorage = 
         //var WebFontConfig;
         
@@ -386,7 +393,7 @@ class Game extends Component  {
             sprite.body.allowGravity = false;
             sprite.body.collideWorldBounds = true;
             sprite.anchor.setTo(0.5);
-            sprite.health = 50;
+            sprite.health = 500;
           
             cursors = game.input.keyboard.createCursorKeys();
             game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
@@ -432,15 +439,19 @@ class Game extends Component  {
           
             game.physics.enable(boxes, Phaser.Physics.ARCADE);    
         
-            createBoxesL(4, 100, 80);
-            createBoxesL(2, 400, 175);    
-            createBoxesL(6, 500, 500);
-            createBoxesL(3, 1000, 370);
-        
-            createBoxesR(4, 2000, 250);
-            createBoxesR(3, 1500, 350);
-            createBoxesR(4, 800, 75);    
-            createBoxesR(3, 600, 500);
+           createBoxesL(4, 100, 80);
+           createBoxesL(2, 400, 175);    
+            createBoxesL(6, 600, 700);
+            createBoxesL(3, 1000, 470);
+            
+            createBoxesL(4, 2000, 250);
+            createBoxesL(3, 1500, 350);
+            createBoxesL(4, 800, 75);    
+            createBoxesL(3, 600, 500);
+            // createBoxesR(4, 2000, 250);
+            // createBoxesR(3, 1500, 350);
+            // createBoxesR(4, 800, 75);    
+            // createBoxesR(3, 600, 500);
         
             for (var i = 0; i < 50; i++)
             {
@@ -528,10 +539,13 @@ class Game extends Component  {
             tilesprite.tilePosition.y = -game.camera.y;
             
             if (shield.health < shield.maxHealth && !charge && shield.alive) {        
-                timer = setInterval(function() {shield.health++}, 200);
+            //    timer = setInterval(function() {shield.health++}, 200);
+                 timer = game.time.events.loop(Phaser.Timer.SECOND, () =>{shield.health++}, this, i);
+
                 charge = true;
             } else if (!shield.alive || shield.health === shield.maxHealth || !sprite.alive) {
-                clearInterval(timer);
+            //    clearInterval(timer);
+                game.time.events.remove(timer);
                 charge = false;
             }
         
@@ -781,9 +795,12 @@ class Game extends Component  {
             if (rnd < 2) a.body.velocity.x = -100;  
             if (rnd > 7) a.body.velocity.y = 200; 
             if (rnd < 2) a.body.velocity.y = -200;  
-            setTimeout(() => {
-                a.body.velocity.setTo(0);
-            }, 1000);
+            // setTimeout(() => {
+            //     a.body.velocity.setTo(0);
+            // }, 1000);
+            game.time.events.add(Phaser.Timer.SECOND * 1, () => {
+                a.body.velocity.setTo(0);            
+            }, this); 
         
             emitterBullet.x = a.x;
             emitterBullet.y = a.y;
@@ -854,6 +871,7 @@ class Game extends Component  {
             flash(b);
             b.damage(bullet.damageAmount);
             disableBullet(a);
+            console.log(b)
         
             if (b.health < 10) {
                 emitterSmoke.x = a.x;
@@ -917,12 +935,18 @@ class Game extends Component  {
                     emitterShield.x = sprite.x;
                     emitterShield.y = sprite.y;
                     emitterShield.start(false, 4000, 2);
-                    setTimeout(() => {
+                    // setTimeout(() => {
+                    //     emitterShield.on = false;                
+                    //     shield.reset(0 - sprite.width/2, 0 - sprite.height/2, 1);               
+                    //     shield.visible = false;
+                    //     shield.animations.stop('shields', true);               
+                    // }, 3000);
+                    game.time.events.add(Phaser.Timer.SECOND * 3, () => {
                         emitterShield.on = false;                
                         shield.reset(0 - sprite.width/2, 0 - sprite.height/2, 1);               
                         shield.visible = false;
-                        shield.animations.stop('shields', true);               
-                    }, 3000);
+                        shield.animations.stop('shields', true);            
+                    }, this); 
                 }        
                 
                 score += 100;
@@ -936,10 +960,13 @@ class Game extends Component  {
         function disableBullet(b) {
          
             if (!b.dis) {
-                b.dis = true;       
-                setTimeout(() => {
+                b.dis = true;  
+                game.time.events.add(Phaser.Timer.SECOND * 0.2, () => {
                     b.dis = false;           
-                }, 200);
+                }, this);     
+                // setTimeout(() => {
+                //     b.dis = false;           
+                // }, 200);
             }  
         }
         
@@ -957,6 +984,7 @@ class Game extends Component  {
                 sprite.damage(b.damageAmount);
                 flash(sprite);
                 b.kill();
+                console.log('kill');
                 change(a, b);
 
                 if (sprite.health < 1) {
@@ -968,12 +996,17 @@ class Game extends Component  {
         function flash(a) {
         
             a.tint= 0xff0000;
-            setTimeout(()=>{a.tint= 0xffffff}, 100);
+            
+            // setTimeout(()=>{a.tint= 0xffffff}, 100);
+            game.time.events.add(Phaser.Timer.SECOND * 0.1, () => {
+                a.tint= 0xffffff;            
+            }, this);
+            
         }
         
         function applyVel(obj) {
-            var velX;
-            var velY;
+            // var velX;
+            // var velY;
             obj.body.velocity.x *= (-1);
             obj.body.velocity.y *= (-1);
             const rnd = Math.floor(Math.random() * 4);
@@ -986,7 +1019,7 @@ class Game extends Component  {
             if (obj.body.velocity.y > 0) {
                 posY = true;
             }
-            var output;
+            // var output;
             //var angle = obj.angle;
             var rnd2 = Math.floor(Math.random () * 2);
             var angle = 0;
@@ -1089,4 +1122,4 @@ class Game extends Component  {
 
 }
 
-export default Game;
+//export default Game;

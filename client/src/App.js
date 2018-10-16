@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Leaderboard from "./pages/Leaderboard";
 import About from "./pages/About";
 import Login from "./pages/Login";
+//import Game from "./pages/Game";
 import Game from "./pages/Game";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer"
